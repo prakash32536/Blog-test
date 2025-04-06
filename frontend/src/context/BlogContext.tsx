@@ -69,7 +69,7 @@ export const BlogProvider = ({ children }: { children: ReactNode }) => {
       setLoading(true);
       setError(null);
       
-      const response = await axios.get('http://localhost:5000/api/blogs');
+      const response = await axios.get('https://blog-test-7we3.onrender.com/api/blogs');
       setBlogs(response.data);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to fetch blogs');
@@ -83,7 +83,7 @@ export const BlogProvider = ({ children }: { children: ReactNode }) => {
       setLoading(true);
       setError(null);
       
-      const response = await axios.get(`http://localhost:5000/api/blogs/${id}`);
+      const response = await axios.get(`https://blog-test-7we3.onrender.com/api/blogs/${id}`);
       setCurrentBlog(response.data);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to fetch blog');
@@ -111,7 +111,7 @@ export const BlogProvider = ({ children }: { children: ReactNode }) => {
         }
       };
       
-      await axios.post('http://localhost:5000/api/blogs', formData, config);
+      await axios.post('https://blog-test-7we3.onrender.com/api/blogs', formData, config);
       await fetchBlogs();
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to create blog');
@@ -139,7 +139,7 @@ export const BlogProvider = ({ children }: { children: ReactNode }) => {
         }
       };
       
-      await axios.put(`http://localhost:5000/api/blogs/${id}`, formData, config);
+      await axios.put(`https://blog-test-7we3.onrender.com/api/blogs/${id}`, formData, config);
       await fetchBlogs();
       if (currentBlog) {
         await fetchBlogById(id);
@@ -162,7 +162,7 @@ export const BlogProvider = ({ children }: { children: ReactNode }) => {
         }
       };
       
-      await axios.delete(`http://localhost:5000/api/blogs/${id}`, config);
+      await axios.delete(`https://blog-test-7we3.onrender.com/api/blogs/${id}`, config);
       setBlogs(blogs.filter(blog => blog._id !== id));
       if (currentBlog && currentBlog._id === id) {
         setCurrentBlog(null);
@@ -187,7 +187,7 @@ export const BlogProvider = ({ children }: { children: ReactNode }) => {
       };
       
       const response = await axios.post(
-        `http://localhost:5000/api/blogs/${blogId}/comments`,
+        `https://blog-test-7we3.onrender.com/api/blogs/${blogId}/comments`,
         { content },
         config
       );
@@ -213,7 +213,7 @@ export const BlogProvider = ({ children }: { children: ReactNode }) => {
       };
       
       const response = await axios.post(
-        `http://localhost:5000/api/blogs/${blogId}/comments/${commentId}/replies`,
+        `https://blog-test-7we3.onrender.com/api/blogs/${blogId}/comments/${commentId}/replies`,
         { content },
         config
       );

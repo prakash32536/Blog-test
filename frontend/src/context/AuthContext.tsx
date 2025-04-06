@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setLoading(true);
       setError(null);
       
-      const response = await axios.post('http://localhost:5000/api/users/login', {
+      const response = await axios.post('https://blog-test-7we3.onrender.com/api/users/login', {
         email,
         password
       });
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         formData.append('profileImage', profileImage);
       }
       
-      const response = await axios.post('http://localhost:5000/api/users/register', formData, {
+      const response = await axios.post('https://blog-test-7we3.onrender.com/api/users/register', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
