@@ -52,6 +52,7 @@ interface BlogContextProps {
   updateBlog: (id: string, title: string, description: string, image: File | null) => Promise<void>;
   deleteBlog: (id: string) => Promise<void>;
   addComment: (blogId: string, content: string) => Promise<void>;
+  addReply: (blogId: string, commentId: string, content: string) => Promise<void>;
 }
 
 const BlogContext = createContext<BlogContextProps | undefined>(undefined);
@@ -199,6 +200,32 @@ export const BlogProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const addReply = async (blogId: string, commentId: string, content: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user?.token}`
+        }
+      };
+      
+      const response = await axios.post(
+        `https://blog-test-7we3.onrender.com/api/blogs/${blogId}/comments/${commentId}/replies`,
+        { content },
+        config
+      );
+      
+      setCurrentBlog(response.data);
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Failed to add reply');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <BlogContext.Provider value={{
       blogs,
@@ -211,6 +238,7 @@ export const BlogProvider = ({ children }: { children: ReactNode }) => {
       updateBlog,
       deleteBlog,
       addComment,
+      addReply
     }}>
       {children}
     </BlogContext.Provider>
